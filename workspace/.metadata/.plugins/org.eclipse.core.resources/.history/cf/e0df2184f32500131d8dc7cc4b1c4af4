@@ -1,0 +1,52 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
+public class Dino {
+	int[] dinoBodyX = { 150, 550, 350 };
+	int[] dinoBodyY = { 50, 50, 200 };
+	
+	int[] dinoHeadX = { 20, 100, 150, 100, 65, 80 };
+	int[] dinoHeadY = { 50, 25, 50, 75, 100, 65 };
+	
+	int[] leftHandX = {200,198,160,158};
+	int[] leftHandY = {75,78,60,62};
+	
+	boolean i = false;
+
+	public void draw(Graphics g) {
+		drawDinoBody(g);
+		drawLeftPart(g);
+		drawDinoHead(g);
+
+	}
+private void drawLeftPart(Graphics g){
+	
+	g.fillPolygon(leftHandX,leftHandY,leftHandX.length);
+	
+}
+	private void drawDinoBody(Graphics g) {
+		Color green = new Color(.2f, .7f, .1f);
+		g.setColor(green);
+		g.fillPolygon(dinoBodyX, dinoBodyY, dinoBodyX.length);
+
+	}
+
+	private void drawDinoHead(Graphics g) {
+
+		if (i) {
+			dinoHeadY[4] = 75;
+			dinoHeadX[4] = 40;
+			i = !i;
+		} else {
+			dinoHeadY[4] = 100;
+			dinoHeadX[4] = 65;
+			i = !i;
+		}
+
+		g.setColor(Color.green);
+		g.fillPolygon(dinoHeadX, dinoHeadY, dinoHeadX.length);
+		g.setColor(Color.black);
+		g.fillOval(75, 35, 10, 10);
+	}
+
+}

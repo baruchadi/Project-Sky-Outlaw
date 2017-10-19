@@ -1,0 +1,226 @@
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Graphics;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+/**
+ * Name: Baruch Hen
+ * 
+ * Period: 3
+ * 
+ * This program displays a bunch of circles on a white background surrounded by
+ * arrows...
+ * 
+ */
+
+public class AmazingTarget extends JPanel {
+	int[] arrowPointsX1 = { 20, 60, 40 };
+	int[] arrowPointsY1 = { 2, 2, 10 };
+
+	int[] arrowPointsX2 = { 40, 40, 20 };
+	int[] arrowPointsY2 = { 2, 10, 5 };
+
+	int[] arrowPointsX3 = { 20, 60, 40 };
+	int[] arrowPointsY3 = { 2, 2, 10 };
+
+	int[] arrowPointsX4 = { 20, 60, 40 };
+	int[] arrowPointsY4 = { 2, 2, 10 };
+
+
+
+	String[] scores = { "10", "50", "100" };
+
+	static Thread thread;
+
+	float speed = 10; // pixels per second?
+
+	final float MAX_DISTANCE = 10; // max distance from target
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g); // Call JPanel's paintComponent method
+									// to paint the background
+
+		// drawTarget(g); // Draws the target in the middle of the screen...
+		//
+		// drawArrows(g); // Draws an arrow above the target to point at the
+		// target...
+
+		drawDino(g);
+
+	}
+	int[] dinoX = { 20, 100, 150,100,65, 80};
+	int[] dinoY = { 50, 25, 50, 75,100,65};
+	boolean i = false;
+	private void drawDino(Graphics g) {
+		
+		if(i){
+			dinoY[4] = 75;
+			   
+		}
+		
+		g.setColor(Color.green);
+		g.fillPolygon(dinoX, dinoY, dinoX.length);
+		g.setColor(Color.black);
+		g.fillOval(75, 35, 10, 10);
+	}
+
+	private void drawPoints(Graphics g, int x, int y, int mid) {
+
+		g.drawString(scores[0], (int) (x + mid - scores[0].length() * 3.5f),
+				y + 15);
+		g.drawString(scores[1], (int) (x + mid - scores[1].length() * 3.5f),
+				y + 35);
+		g.setColor(Color.BLACK);
+		g.drawString(scores[2], (int) (x + mid - scores[2].length() * 3.5f),
+				y + 55);
+
+	}
+
+	private void drawArrows(Graphics g) {
+
+		g.setColor(Color.BLACK);
+
+		g.fillPolygon(arrowPointsX1, arrowPointsY1, 3);
+		g.fillPolygon(arrowPointsX2, arrowPointsY2, 3);
+		g.fillPolygon(arrowPointsX3, arrowPointsY3, 3);
+		g.fillPolygon(arrowPointsX4, arrowPointsY4, 3);
+
+	}
+
+	public void drawTarget(Graphics g) {
+		g.setColor(Color.GREEN);
+
+		int startX = getWidth() / 2 - 50, startY = getHeight() / 2 - 50;
+
+		g.fillOval(startX, startY, 100, 100);
+		g.setColor(Color.RED);
+		g.fillOval(startX + 20, startY + 20, 60, 60);
+		g.setColor(Color.WHITE);
+		g.fillOval(startX + 40, startY + 40, 20, 20);
+
+		updateCoordinates(startX, startY, 100, 100); // updates the coordinates
+														// of the arrows
+														// just in case the
+														// screen dimensions
+														// have changed
+		drawPoints(g, startX, startY, 50);
+	}
+
+	private void updateCoordinates(int startX, int startY, int width, int height) {
+
+		/*
+		 * probably NOT the most efficient way...
+		 * 
+		 * but im too lazy to find another...
+		 */
+		// top Arrow Coordinates :
+
+		arrowPointsX1[0] = startX + width / 2 - 20;
+		arrowPointsX1[1] = startX + width / 2 + 20;
+		arrowPointsX1[2] = startX + width / 2;
+
+		arrowPointsY1[0] = startY - 25 - (int) indent;
+		arrowPointsY1[1] = startY - 25 - (int) indent;
+		arrowPointsY1[2] = startY - 5 - (int) indent;
+
+		// Right Arrow Coordinates:
+
+		arrowPointsX2[0] = startX + width + 25 + (int) indent;
+		arrowPointsX2[1] = startX + width + 25 + (int) indent;
+		arrowPointsX2[2] = startX + width + 5 + (int) indent;
+
+		arrowPointsY2[0] = startY + height / 2 - 20;
+		arrowPointsY2[1] = startY + height / 2 + 20;
+		arrowPointsY2[2] = startY + height / 2;
+
+		// Bottom Arrow Coordinates:
+
+		arrowPointsX3[0] = startX + width / 2 - 20;
+		arrowPointsX3[1] = startX + width / 2 + 20;
+		arrowPointsX3[2] = startX + width / 2;
+
+		arrowPointsY3[0] = startY + height + 25 + (int) indent;
+		arrowPointsY3[1] = startY + height + 25 + (int) indent;
+		arrowPointsY3[2] = startY + height + 5 + (int) indent;
+
+		// Left Arrow Coordinates:
+
+		arrowPointsX4[0] = startX - 25 - (int) indent;
+		arrowPointsX4[1] = startX - 25 - (int) indent;
+		arrowPointsX4[2] = startX - 5 - (int) indent;
+
+		arrowPointsY4[0] = startY + height / 2 - 20;
+		arrowPointsY4[1] = startY + height / 2 + 20;
+		arrowPointsY4[2] = startY + height / 2;
+
+		// Phew... that was the last one...
+
+		// the "animation" in action!
+
+		if (up) {
+
+			indent -= speed * .5f; // time .5 because there are 2 frames per
+									// second
+
+			if (indent < 0) {
+				up = false;
+			}
+
+		} else {
+			indent += speed * .5f;// time .5 because there are 2 frames per
+									// second
+
+			if (indent > 5) {
+				up = true;
+			}
+		}
+
+		// System.out.println("test"); <- checked if the loop was working
+
+	}
+
+	boolean up = true;
+
+	boolean first = true;
+
+	float indent = 0;
+
+	public AmazingTarget() {
+		thread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				while (true) {
+
+					paintComponent(getGraphics());
+					try {
+						thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+			}
+		});
+
+		// animating it with a while loop whithin a thread!
+		// ya... im that bored...
+
+	}
+
+	public static void main(String[] args) {
+		JFrame window = new JFrame("Red Cross");
+		window.setBounds(300, 300, 200, 200);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		AmazingTarget panel = new AmazingTarget();
+		panel.setBackground(Color.WHITE);
+		Container c = window.getContentPane();
+		c.add(panel);
+		window.setVisible(true);
+		thread.start();
+	}
+}

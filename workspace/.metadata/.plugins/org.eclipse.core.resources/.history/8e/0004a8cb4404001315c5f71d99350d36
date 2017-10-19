@@ -1,0 +1,5 @@
+package com.isolatedpixel.skymission.objects;
+
+public class Bullet {
+
+}

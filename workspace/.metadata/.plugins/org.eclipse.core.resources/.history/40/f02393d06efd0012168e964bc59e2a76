@@ -1,0 +1,117 @@
+package com.isolatedpixel.skymission.world;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
+import com.isolatedpixel.skymission.StartPoint;
+import com.isolatedpixel.skymission.mobs.Player;
+import com.isolatedpixel.skymission.objects.Block;
+import com.isolatedpixel.skymission.screens.DemoWorld;
+
+public class WorldRenderer {
+
+	public static final float CAMERA_WIDTH = 10f;
+	public static final float CAMERA_HEIGHT = 7f;
+
+	private DemoWorld world;
+	public OrthographicCamera bg_cam, cam, hud_cam;
+
+	ShapeRenderer debugRenderer = new ShapeRenderer();
+
+	private Texture bobTexture;
+	private Texture blockTexture;
+
+	private SpriteBatch batcher = new SpriteBatch();
+
+	private int width;
+	private int height;
+	private float ppuX;
+	private float ppuY;
+
+	private boolean debug = StartPoint.debug;
+
+	Texture bh1;
+	Sprite s;
+
+	public void setSize(int w, int h) {
+		this.width = w;
+		this.height = h;
+		ppuX = (float) width / CAMERA_WIDTH;
+		ppuY = (float) height / CAMERA_HEIGHT;
+		
+		
+		
+	}
+
+	public WorldRenderer(DemoWorld world) {
+
+		this.world = world;
+		
+		
+		
+		
+		bh1 = new Texture(Gdx.files.internal("textures/bh1.png"));
+		s = new Sprite(bh1);
+		s.setPosition(world.getBob().getBounds().x,
+				world.getBob().getBounds().y);
+		s.setSize(world.getBob().getBounds().width,
+				world.getBob().getBounds().height);
+		
+		
+		
+		ppuX = (float) width / CAMERA_WIDTH;
+		ppuY = (float) height / CAMERA_HEIGHT;
+		this.cam = new OrthographicCamera(ppuX, ppuY);
+		this.cam.position.set(5, 4f, 0);
+		this.cam.update();
+		System.out.println(width + ", " + height);
+
+	}
+
+	boolean flipped = false;
+	boolean b2 = false;
+
+	public void Render() {
+		Player bob = world.getBob();
+		if (debug) {
+			debugRenderer.setProjectionMatrix(cam.combined);
+			debugRenderer.begin(ShapeType.Line);
+			for (Block block : world.getBlocks()) {
+				Rectangle rect = block.getBounds();
+				float x1 = block.getPosition().x + rect.x;
+				float y1 = block.getPosition().y + rect.y;
+				debugRenderer.setColor(new Color(1, 0, 0, 1));
+				debugRenderer.rect(x1, y1, rect.width, rect.height);
+			}
+
+			Rectangle rect = bob.getBounds();
+			float x1 = bob.getPosition().x + rect.x;
+			float y1 = bob.getPosition().y + rect.y;
+			debugRenderer.setColor(new Color(0, 1, 0, 1));
+			debugRenderer.rect(x1, y1, rect.width, rect.height);
+			debugRenderer.end();
+		}
+		batcher.setProjectionMatrix(cam.combined);
+		batcher.begin();
+
+		boolean b1 = bob.isFacingLeft();
+		if (b1 != b2) {
+			s.flip(true, false);
+		}
+		b2 = b1;
+
+		batcher.draw(s, bob.getPosition().x, bob.getPosition().y,
+				bob.getBounds().width, bob.getBounds().height);
+
+		batcher.end();
+
+		debug = StartPoint.debug;
+	}
+
+}

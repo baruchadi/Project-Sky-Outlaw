@@ -1,0 +1,60 @@
+package com.isolatedpixel.skymission.objects.ammo;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.isolatedpixel.skymission.graphics.Assets;
+
+public class Card extends Projectile {
+
+	float maxLife = 3f;
+	float life = 0;
+	
+	float b_speed = 3;
+
+	float rotation;
+	
+	public Card(Vector2 pos, boolean right) {
+		super(pos, right, .2f, .8f);
+
+		rotation = 90;
+		
+		if (right) {
+			this.position.x += .4f;
+		} else {
+
+			b_speed = -b_speed;
+		}
+
+	}
+
+	@Override
+	public void draw(SpriteBatch b) {
+
+		b.draw(getTexture(), bounds.getX(), bounds.getY(),0,0, bounds.getWidth(), bounds.getHeight(), (float)1, (float)1, (float)rotation, (int)bounds.getX(), (int)bounds.getY(), (int)bounds.getWidth(), (int)bounds.getHeight(), false, false);
+		
+	}
+	
+	@Override
+	public Texture getTexture() {
+		// TODO Auto-generated method stub
+		return Assets.card;
+	}
+
+	@Override
+	public boolean update(float delta) {
+
+		this.position.x += b_speed * delta;
+		bounds.x = position.x;
+		bounds.y = position.y;
+
+		life += delta;
+		System.out.println(delta + ", " + life + " / " + maxLife);
+		if (life > maxLife) {
+			return false;
+		} else
+			return true;
+
+	}
+
+}

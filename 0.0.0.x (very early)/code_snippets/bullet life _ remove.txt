@@ -1,0 +1,36 @@
+//Bullet
+
+	float maxLife = 1.5f;
+	float life = 0;
+
+	...	
+
+	public boolean update(float delta) {
+		this.position.x += b_speed * delta;
+		life += delta;
+		System.out.println(delta + ", " + life + " / " + maxLife);
+		if (life > maxLife) {
+			return false;
+		} else
+			return true;
+
+	}
+
+//world renderer
+
+	public void Render() {
+
+	...	
+
+	
+		for(int i = 0; i < world.bullets.size(); i++){
+			
+			if(world.bullets.get(i).update(Gdx.graphics.getDeltaTime()))
+			batcher.draw(Assets.bullet, world.bullets.get(i).getPosition().x, world.bullets.get(i).getPosition().y,world.bullets.get(i).getBounds().width,world.bullets.get(i).getBounds().height);
+			else
+			world.bullets.remove(world.bullets.get(i));
+		}
+
+	...
+
+	}

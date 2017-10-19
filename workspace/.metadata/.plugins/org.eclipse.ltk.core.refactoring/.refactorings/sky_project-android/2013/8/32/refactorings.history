@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;sky_project-android/assets/textures/newall.png&apos; to &apos;bh.png&apos;" description="Rename resource &apos;newall.png&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="assets/textures/newall.png" name="bh.png" stamp="1375752322577" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;sky_project-android/assets/textures/newall.pack&apos; to &apos;bh.pack&apos;" description="Rename resource &apos;newall.pack&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="assets/textures/newall.pack" name="bh.pack" stamp="1375752338898" updateReferences="true"/>
+</session>

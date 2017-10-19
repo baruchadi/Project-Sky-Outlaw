@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;WorldRenderer.java&apos; to &apos;sky_project/src/com.isolatedpixel.skymission.world&apos;&#x0A;- Original project: &apos;sky_project&apos;&#x0A;- Destination element: &apos;sky_project/src/com.isolatedpixel.skymission.world&apos;&#x0A;- Original element: &apos;com.isolatedpixel.skymission.graphics.WorldRenderer.java&apos;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="/src&lt;com.isolatedpixel.skymission.world" element1="/src&lt;com.isolatedpixel.skymission.graphics{WorldRenderer.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1375570666001" units="1" version="1.0"/>
+</session>

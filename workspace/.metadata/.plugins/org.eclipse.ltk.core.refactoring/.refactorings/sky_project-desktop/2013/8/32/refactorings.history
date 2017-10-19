@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;sky_project-desktop/assets/textures/BOUNTY HUNTER (1).png&apos; to &apos;bh1.png&apos;" description="Rename resource &apos;BOUNTY HUNTER (1).png&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="assets/textures/BOUNTY HUNTER (1).png" name="bh1.png" stamp="1375579091577" updateReferences="true"/>
+</session>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 4 elements from project &apos;sky_project-desktop&apos;&#x0A;- Original project: &apos;sky_project-desktop&apos;&#x0A;- Original elements:&#x0A;     gdx-backend-lwjgl-natives.jar&#x0A;     gdx-backend-lwjgl-sources.jar&#x0A;     gdx-backend-lwjgl.jar&#x0A;     gdx-natives.jar" description="Delete elements" element1="libs/gdx-natives.jar" element2="libs/gdx-backend-lwjgl.jar" element3="libs/gdx-backend-lwjgl-natives.jar" element4="libs/gdx-backend-lwjgl-sources.jar" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="4" stamp="1375146014322" subPackages="false" version="1.0"/>
+</session>

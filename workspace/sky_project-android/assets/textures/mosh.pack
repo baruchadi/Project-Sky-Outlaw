@@ -1,0 +1,47 @@
+
+mosh.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+mob1
+  rotate: false
+  xy: 0, 0
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: -1
+mob5
+  rotate: false
+  xy: 64, 0
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: -1
+mob4
+  rotate: false
+  xy: 128, 0
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: -1
+mob2
+  rotate: false
+  xy: 192, 0
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: -1
+mob6
+  rotate: false
+  xy: 256, 0
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: -1
+mob3
+  rotate: false
+  xy: 320, 0
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: -1

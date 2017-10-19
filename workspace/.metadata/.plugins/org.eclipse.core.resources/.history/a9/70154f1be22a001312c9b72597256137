@@ -1,0 +1,277 @@
+package com.isolatedpixel.skymission.world;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.FPSLogger;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.isolatedpixel.skymission.StartPoint;
+import com.isolatedpixel.skymission.graphics.Assets;
+import com.isolatedpixel.skymission.mobs.Player;
+import com.isolatedpixel.skymission.objects.Wood;
+import com.isolatedpixel.skymission.screens.DemoWorld;
+
+public class WorldRenderer {
+
+	public static final float CAMERA_WIDTH = 10f;
+	public static final float CAMERA_HEIGHT = 8f;
+
+	private DemoWorld world;
+	public OrthographicCamera cam, hud_cam, bg_cam;
+
+	ShapeRenderer debugRenderer = new ShapeRenderer();
+
+	private Texture bobTexture;
+	private Texture blockTexture;
+
+	static private SpriteBatch batcher = new SpriteBatch();
+
+	BitmapFont font;
+
+	private int width;
+	private int height;
+	private float ppuX;
+	private float ppuY;
+	FPSLogger logger;
+	private boolean debug = StartPoint.debug;
+
+	float bgZoom = 2;
+
+	// Texture bh1;
+	// Sprite s;
+
+	public float getAlpha() {
+		return batcher.getColor().a;
+
+	}
+
+	public void setSize(int w, int h) {
+		this.width = w;
+		this.height = h;
+		ppuX = width / CAMERA_WIDTH;
+		ppuY = height / CAMERA_HEIGHT;
+
+	}
+
+	Skin s;
+
+	public WorldRenderer(DemoWorld world) {
+
+		this.world = world;
+		this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
+		this.cam.position.set(5, 4f, 0);
+		this.cam.update();
+
+		hud_cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
+		hud_cam.position.set(5, 4, 0);
+		hud_cam.update();
+
+		bg_cam = new OrthographicCamera(CAMERA_WIDTH * bgZoom, CAMERA_HEIGHT
+				* bgZoom);
+		bg_cam.position.set(world.getBob().getPosition().x * bgZoom + 1
+				+ CAMERA_WIDTH * bgZoom * (1 / 3), 4 * bgZoom, 0);
+
+		bg_cam.update();
+
+		logger = new FPSLogger();
+		s = Assets.get(Assets.MenuSkin, Skin.class);
+		font = new BitmapFont();
+		font.setScale(.6f);
+		// world.setTextures();
+
+		// bh1 = new Texture(Gdx.files.internal("textures/bh1.png"));
+		// s = new Sprite(bh1);
+		// s.setPosition(world.getBob().getBounds().x,
+		// world.getBob().getBounds().y);
+		// s.setSize(world.getBob().getBounds().width,
+		// world.getBob().getBounds().height);
+
+	}
+
+	// boolean flipped = false;
+	// boolean b2 = false;
+
+	public void setAlpha(float a) {
+
+		batcher.setColor(1f, 1f, 1f, a);
+
+	}
+
+	public void Render() {
+		// Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		Player bob = world.getBob();
+
+		batcher.begin();
+		batcher.setColor(1, 1, 1, 1);
+		// batcher.enableBlending();
+		// batcher.setBlendFunction(GL20.GL_ZERO, GL20.GL_ONE);//
+		batcher.setProjectionMatrix(hud_cam.combined);
+		// batcher.setBlendFunction(GL20.GL_FUNC_ADD, GL20.GL_FUNC_ADD);
+		// batcher.disableBlending();
+		batcher.draw(Assets.background0, 0, world.wood.get(0).getPosition().y
+				+ world.wood.get(0).getBounds().height, CAMERA_WIDTH,
+				CAMERA_HEIGHT
+						- (world.wood.get(0).getPosition().y + world.wood
+								.get(0).getBounds().height));
+		batcher.enableBlending();
+		if (bob.getPosition().x + CAMERA_WIDTH * (2 / 3) < CAMERA_WIDTH / 2) {
+			cam.position.set(5, cam.position.y, 0);
+
+		} else if (bob.getPosition().x + CAMERA_WIDTH * (2 / 3) > world
+				.getMaxWidth() - CAMERA_WIDTH / 2) {
+			cam.position.set(world.getMaxWidth() - CAMERA_WIDTH / 2,
+					cam.position.y, 0);
+		} else {
+			cam.position.set(bob.getPosition().x + CAMERA_WIDTH * (2 / 3),
+					cam.position.y, 0);
+			bg_cam.position.set(bob.getPosition().x + CAMERA_WIDTH * bgZoom
+					* (4 / 5), bg_cam.position.y, 0);
+		}
+
+		// if(bob.getPosition().x>bg_cam.position.x+2){
+		//
+		// bg_cam.position.add(.05f, 0, 0);
+		//
+		// }
+
+		bg_cam.update();
+		// batcher.disableBlending();
+		batcher.setProjectionMatrix(bg_cam.combined);
+		batcher.draw(Assets.background, -bgZoom * 2.5f, world.wood.get(0)
+				.getPosition().y
+				+ world.wood.get(0).getBounds().height
+				* bgZoom, 25 * bgZoom, (CAMERA_HEIGHT - world.wood.get(0)
+				.getBounds().height) * bgZoom);
+		batcher.draw(Assets.background1, -bgZoom * 2.5f, world.wood.get(0)
+				.getPosition().y
+				+ world.wood.get(0).getBounds().height
+				* bgZoom, 15 * bgZoom, (CAMERA_HEIGHT - world.wood.get(0)
+				.getBounds().height) * bgZoom);
+
+		cam.update();
+		// batcher.enableBlending();
+		batcher.setProjectionMatrix(cam.combined);
+
+		// boolean b1 = bob.isFacingLeft();
+		// if (b1 != b2) {
+		// s.flip(true, false);
+		// }
+		// b2 = b1;
+
+		for (int i = 0; i < world.wood.size; i++) {
+			batcher.draw(Assets.floor, world.wood.get(i).getPosition().x,
+					world.wood.get(i).getPosition().y, world.wood.get(i)
+							.getBounds().width,
+					world.wood.get(i).getBounds().height);
+
+		}
+
+		// batcher.setColor(1, 1, 1, 1f);
+		// ********************************************************
+
+		// batcher.setColor(1, 1, 0, .25f);
+		// batcher.draw(Assets.light, 4, 0, 8, 3.5f);
+		// batcher.setColor(1, 1, 1, 1f);
+		// for (int i = 0; i < world.dirt.size; i++) {
+		// batcher.draw(Assets.dirt, world.dirt.get(i).getPosition().x,
+		// world.dirt.get(i).getPosition().y, world.dirt.get(i)
+		// .getBounds().width,
+		// world.dirt.get(i).getBounds().height);
+		// }
+
+		for (int i = 0; i < world.boxes.size(); i++) {
+			world.boxes.get(i).draw(batcher);
+		}
+		batcher.setColor(1, 1, 1, 1);
+		// for (int i = 1; i < world.objects.size(); i++) {
+		// world.objects.get(i).draw(batcher);
+		// }
+
+		for (int i = 0; i < world.bullets.size(); i++) {
+
+			if (world.bullets.get(i).update(Gdx.graphics.getDeltaTime()))
+				batcher.draw(Assets.bullet,
+						world.bullets.get(i).getPosition().x, world.bullets
+								.get(i).getPosition().y, world.bullets.get(i)
+								.getBounds().width, world.bullets.get(i)
+								.getBounds().height);
+			else
+				world.bullets.remove(world.bullets.get(i));
+		}
+
+		// batcher.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_DST_ALPHA);//
+		// batcher.setBlendFunction(GL20.GL_ONE, GL20.GL_SRC_COLOR);
+		batcher.draw(bob.getFrame(), bob.getPosition().x, bob.getPosition().y
+				+ bob.JumpY, bob.getBounds().width, bob.getBounds().height);
+		// batcher.setBlendFunction(GL20.GL_BLEND_SRC_RGB,
+		// GL20.GL_BLEND_DST_RGB);
+		// batcher.setColor(1, 1, 1, .75f);
+		// batcher.draw(Assets.shadow, 0, 0, 15, 8f);
+		// batcher.draw(Assets.shadow, 0, 0, 15, 8f);
+		// batcher.draw(Assets.shadow, 0, 0, 15, 8f);
+		// batcher.draw(Assets.shadow, 0, 0, 15, 8f);
+		// batcher.draw(Assets.shadow, 0, 0, 15, 8f);
+		// batcher.draw(Assets.shadow, 0, 0, 15, 8f);
+		// batcher.draw(Assets.shadow, 0, 0, 15, 2.5f);
+
+		// batcher.setColor(1, 1, 1, 1f);
+		// batcher.draw(Assets.light, 4, 0, 8, 2.5f);
+		// batcher.enableBlending();
+
+		// batcher.disableBlending();
+		batcher.setColor(1, 1, 1, 1);
+		batcher.draw(Assets.l1, 7.5f, 2.5f, 1, 4);
+
+		// batcher.setBlendFunction(GL20.GL_BLEND_SRC_ALPHA,
+		// GL20.GL_BLEND_DST_ALPHA);
+		// batcher.setColor(1, 1, 1, .5f);
+		// batcher.draw(Assets.light, 0, 0, 7, 2.5f);
+		//
+		// ***************************
+
+		batcher.setColor(1, 1, 1, 1f);
+		batcher.draw(Assets.light2, 4, 0, 8, 6.5f);
+
+		batcher.setColor(1, 1, 1, 1);
+		for (int d = 0; d < world.damage.size(); d++) {
+
+			if (world.damage.get(d).update(world.damage,
+					Gdx.graphics.getDeltaTime())) {
+				world.damage.get(d).draw(batcher);
+			}
+
+		}
+
+		batcher.end();
+
+		if (debug) {
+			debugRenderer.setProjectionMatrix(cam.combined);
+			debugRenderer.begin(ShapeType.Line);
+			for (Wood block : world.getBlocks()) {
+				Rectangle rect = block.getBounds();
+				float x1 = block.getPosition().x + rect.x;
+				float y1 = block.getPosition().y + rect.y;
+				debugRenderer.setColor(new Color(1, 0, 0, 1));
+				debugRenderer.rect(x1, y1, rect.width, rect.height);
+			}
+
+			Rectangle rect = bob.getBounds();
+			float x1 = bob.getPosition().x + rect.x;
+			float y1 = bob.getPosition().y + rect.y;
+			debugRenderer.setColor(new Color(0, 1, 0, 1));
+			debugRenderer.rect(x1, y1, rect.width, rect.height);
+			debugRenderer.end();
+			// logger.log();
+		}
+
+		debug = StartPoint.debug;
+
+	}
+
+}

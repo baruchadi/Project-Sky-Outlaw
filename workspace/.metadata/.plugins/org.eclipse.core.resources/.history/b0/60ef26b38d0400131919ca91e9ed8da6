@@ -1,0 +1,58 @@
+package com.isolatedpixel.skymission.objects;
+
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+
+public class Bullet {
+	static final float size = .2f;
+
+	//static final float speed = 2f;
+
+	int maxLife = 10;
+	int life = 0;
+	
+	boolean right;
+	
+	float b_speed = 8f;
+	
+	Vector2 position = new Vector2();
+	Rectangle bounds = new Rectangle();
+
+	public Bullet(Vector2 pos, boolean right) {
+
+		this.position = pos;
+		this.bounds.width = size/3;
+		this.bounds.height = size / 4;
+
+		if(right){
+			this.position.x += .4f;
+		}else{
+			
+			b_speed = -b_speed;
+		}
+		
+	}
+
+	public Rectangle getBounds() {
+		return bounds;
+	}
+
+	public Vector2 getPosition() {
+		return position;
+	}
+
+	public static float getSize() {
+		return size;
+	}
+
+	public void update(float delta) {
+		
+		if(life > maxLife){
+			
+		}
+		
+		this.position.x += b_speed * delta;
+
+	}
+
+}

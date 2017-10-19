@@ -1,0 +1,309 @@
+package com.isolatedpixel.skymission.world;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
+import com.badlogic.gdx.math.Vector2;
+import com.isolatedpixel.skymission.StartPoint;
+import com.isolatedpixel.skymission.mobs.Player;
+import com.isolatedpixel.skymission.mobs.Player.State;
+import com.isolatedpixel.skymission.objects.Pepper;
+import com.isolatedpixel.skymission.objects.Wood;
+import com.isolatedpixel.skymission.screens.DemoWorld;
+
+public class WorldController {
+	enum Keys {
+		LEFT, RIGHT, JUMP, FIRE, CROUCH,
+
+		DOWN, UP,
+
+		incH, incW, incS,
+
+		decH, decW, decS,
+
+		t_debug
+	}
+
+	// jump -z shoot -x interact -c
+
+	private DemoWorld world;
+	private Player bob;
+
+	static Map<Keys, Boolean> keys = new HashMap<WorldController.Keys, Boolean>();
+
+	static {
+		keys.put(Keys.LEFT, false);
+		keys.put(Keys.RIGHT, false);
+		keys.put(Keys.JUMP, false);
+		keys.put(Keys.FIRE, false);
+		keys.put(Keys.CROUCH, false);
+
+		keys.put(Keys.DOWN, false);
+		keys.put(Keys.UP, false);
+
+		keys.put(Keys.incH, false);
+		keys.put(Keys.incS, false);
+		keys.put(Keys.incW, false);
+		keys.put(Keys.decH, false);
+		keys.put(Keys.decS, false);
+		keys.put(Keys.decW, false);
+
+		keys.put(Keys.t_debug, false);
+	}
+
+	public WorldController(DemoWorld world) {
+		this.world = world;
+		this.bob = world.getBob();
+	}
+
+	/* Key Presses / touches */
+
+	public void leftPressed() {
+		keys.get(keys.put(Keys.LEFT, true));
+	}
+
+	public void downPressed() {
+		keys.get(keys.put(Keys.DOWN, true));
+	}
+
+	public void upPressed() {
+		keys.get(keys.put(Keys.UP, true));
+	}
+
+	public void downReleased() {
+		keys.get(keys.put(Keys.DOWN, false));
+	}
+
+	public void upReleased() {
+		keys.get(keys.put(Keys.UP, false));
+	}
+
+	public void crouchPressed() {
+		keys.get(keys.put(Keys.CROUCH, true));
+	}
+
+	public void rightPressed() {
+		keys.get(keys.put(Keys.RIGHT, true));
+	}
+
+	public void jumpPressed() {
+		keys.get(keys.put(Keys.JUMP, true));
+	}
+
+	public void firePressed() {
+		keys.get(keys.put(Keys.FIRE, true));
+	}
+
+	public void incHPressed() {
+		keys.get(keys.put(Keys.incH, true));
+	}
+
+	public void incWPressed() {
+		keys.get(keys.put(Keys.incW, true));
+	}
+
+	public void incSPressed() {
+		keys.get(keys.put(Keys.incS, true));
+	}
+
+	public void decHPressed() {
+		keys.get(keys.put(Keys.decH, true));
+	}
+
+	public void decWPressed() {
+		keys.get(keys.put(Keys.decW, true));
+	}
+
+	public void decSPressed() {
+		keys.get(keys.put(Keys.decS, true));
+	}
+
+	public void tDebugPressed() {
+		keys.get(keys.put(Keys.t_debug, true));
+	}
+
+	/** ===== **/
+
+	public void crouchReleased() {
+		keys.get(keys.put(Keys.CROUCH, false));
+	}
+
+	public void leftReleased() {
+		keys.get(keys.put(Keys.LEFT, false));
+	}
+
+	public void rightReleased() {
+		keys.get(keys.put(Keys.RIGHT, false));
+	}
+
+	public void jumpReleased() {
+		keys.get(keys.put(Keys.JUMP, false));
+	}
+
+	public void fireReleased() {
+		keys.get(keys.put(Keys.FIRE, false));
+	}
+
+	public void incHReleased() {
+		keys.get(keys.put(Keys.incH, false));
+	}
+
+	public void incWReleased() {
+		keys.get(keys.put(Keys.incW, false));
+	}
+
+	public void incSReleased() {
+		keys.get(keys.put(Keys.incS, false));
+	}
+
+	public void decHReleased() {
+		keys.get(keys.put(Keys.decH, false));
+	}
+
+	public void decWReleased() {
+		keys.get(keys.put(Keys.decW, false));
+	}
+
+	public void decSReleased() {
+		keys.get(keys.put(Keys.decS, false));
+	}
+
+	public void tDebugReleased() {
+		keys.get(keys.put(Keys.t_debug, false));
+	}
+
+	Random rand = new Random();
+
+	// update method
+	// ********************************************************************************************
+	public void update(float delta) {
+
+		processInput();
+		bob.update(delta);
+		for (int b = 0; b < world.projectiles.size(); b++) {
+			for (int p = 0; p < world.boxes.size(); p++) {
+				if (b == 0) {
+					world.boxes.get(p).update(delta);
+
+				}
+				if (world.projectiles.get(b).getBounds()
+						.overlaps(world.boxes.get(p).getBounds())) {
+					int dmg = rand.nextInt(30);
+					world.addDmgLbl(dmg,
+							world.projectiles.get(b).getPosition().x,
+							world.projectiles.get(b).getPosition().y, rand
+									.nextFloat(), world.projectiles.get(b)
+									.getSpeed() > 0);
+
+					if (world.boxes.get(p).hit(dmg)) {
+						world.removeBox.add(world.boxes.get(p));
+						world.boxes.remove(world.boxes.get(p));
+						world.boxes.add(new Pepper(rand.nextInt(Wood.getSize()-3)) + 2, rand
+								.nextInt(2) + .25f));
+					}
+					world.projectiles.remove(b);
+
+				}
+
+			}
+		}
+
+		for (int i = 0; i < world.removeBox.size(); i++) {
+			if (world.removeBox.get(i).destroy(delta))
+				world.removeBox.remove(i);
+		}
+
+		for (int i = 0; i < world.enemies.size(); i++) {
+			world.enemies.get(i).update(bob, delta);
+		}
+
+	}
+
+	// ********************************************************************************************
+	private void processInput() {
+		if (keys.get(Keys.LEFT) && !bob.crouching) {
+			// left is pressed
+			if (bob.getPosition().x > 0) {
+				bob.setFacingLeft(true);
+				bob.setState(State.WALKING);
+
+				bob.getVelocity().x = -Player.SPEED;
+			} else {
+				bob.setFacingLeft(true);
+				bob.setState(State.IDLE);
+				bob.getVelocity().x = 0;
+			}
+
+		}
+
+		if (keys.get(Keys.RIGHT) && !bob.crouching) {
+
+			if (bob.getPosition().x < world.getMaxWidth() - .6) {
+				bob.setFacingLeft(false);
+				bob.setState(State.WALKING);
+				bob.getVelocity().x = Player.SPEED;
+			} else {
+				bob.setFacingLeft(false);
+				bob.setState(State.IDLE);
+				bob.getVelocity().x = 0;
+			}
+			// right is pressed
+
+		}
+
+		if (keys.get(Keys.DOWN)) {
+			if (bob.getPosition().y - .05f > world.wood.get(0).getPosition().y + .5f)
+				bob.getPosition().y -= .05f;
+		} else if (keys.get(Keys.UP)) {
+			if (bob.getPosition().y + .05f < world.wood.get(0).getBounds().height - .5f)
+				bob.getPosition().y += .05f;
+		}
+
+		if (keys.get(Keys.CROUCH) && bob.g) {
+			bob.getVelocity().x = 0;
+			bob.crouch();
+
+		} else {
+			bob.getBounds().height = Player.height1;
+			bob.crouching = false;
+		}
+
+		if (keys.get(Keys.FIRE)) {
+			bob.shoot(world);
+
+			fireReleased();
+		}
+
+		if (keys.get(Keys.JUMP)) {
+			if (bob.g) {// && !bob.crouching
+				bob.setVelocity(new Vector2(bob.getVelocity().x, -.3f));
+			}
+			jumpReleased();
+		}
+
+		/*
+		 * if (keys.get(Keys.incH)) { bob.getBounds().height += .05f; } if
+		 * (keys.get(Keys.decH)) { bob.getBounds().height -= .05f; } if
+		 * (keys.get(Keys.decS)) { Player.SPEED -= .05f; } if
+		 * (keys.get(Keys.incS)) { Player.SPEED += .05f; } if
+		 * (keys.get(Keys.decW)) { bob.getBounds().width -= .05f; } if
+		 * (keys.get(Keys.incW)) { bob.getBounds().width += .05f; }
+		 */
+		if (keys.get(Keys.t_debug)) {
+			StartPoint.debug = !StartPoint.debug;
+			tDebugReleased();
+		}
+
+		// if(keys.get(key))
+
+		// check if both/none directions are pressed
+
+		if (((keys.get(Keys.LEFT) && keys.get(Keys.RIGHT)) || (!keys
+				.get(Keys.LEFT) && !keys.get(Keys.RIGHT)))) {
+			bob.setState(State.IDLE);
+			bob.getAccelaration().x = 0;
+			bob.getVelocity().x = 0;
+		}
+	}
+}

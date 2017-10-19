@@ -1,0 +1,59 @@
+package com.isolatedpixel.skymission.objects;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.isolatedpixel.skymission.graphics.Assets;
+
+public class Pepper implements QuadtreeElement {
+	float x, y;
+
+	int health = 5;
+
+	Rectangle bounds;
+
+	public Pepper(float x, float y) {
+
+		this.x = x;
+		this.y = y;
+
+		bounds = new Rectangle(x, y, 1, 1.5f);
+
+	}
+
+	public Rectangle getBounds() {
+		return bounds;
+
+	}
+
+	public void draw(SpriteBatch b) {
+		b.setColor(1, 1, 1, health / 5f);
+		b.draw(Assets.pepper, x, y, 1, 1.5f);
+
+	}
+	
+	public void update()	{
+		Vector2 v = new Vector2(bounds.getX(),bounds.getY());
+		
+	}
+
+	public boolean hit(int dmg) {
+		health -= dmg;
+		if (health <= 0) {
+			return true;
+		} else
+			return false;
+	}
+
+	@Override
+	public float getX() {
+		// TODO Auto-generated method stub
+		return x;
+	}
+
+	@Override
+	public float getY() {
+		// TODO Auto-generated method stub
+		return y;
+	}
+}

@@ -1,0 +1,159 @@
+
+screens.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+rooflayer1
+  rotate: false
+  xy: 1, 36
+  size: 30, 9
+  orig: 30, 9
+  offset: 0, 0
+  index: -1
+rooflayer2
+  rotate: false
+  xy: 1, 25
+  size: 30, 9
+  orig: 30, 9
+  offset: 0, 0
+  index: -1
+rooflayer3
+  rotate: false
+  xy: 33, 36
+  size: 30, 9
+  orig: 30, 9
+  offset: 0, 0
+  index: -1
+rooflayer4
+  rotate: false
+  xy: 1, 14
+  size: 30, 9
+  orig: 30, 9
+  offset: 0, 0
+  index: -1
+walllayer1
+  rotate: false
+  xy: 1, 1
+  size: 22, 11
+  orig: 22, 11
+  offset: 0, 0
+  index: -1
+walllayer2
+  rotate: false
+  xy: 25, 1
+  size: 22, 11
+  orig: 22, 11
+  offset: 0, 0
+  index: -1
+rooflayer5
+  rotate: false
+  xy: 65, 36
+  size: 30, 9
+  orig: 30, 9
+  offset: 0, 0
+  index: -1
+rooflayer6
+  rotate: false
+  xy: 33, 25
+  size: 30, 9
+  orig: 30, 9
+  offset: 0, 0
+  index: -1
+rooflayer7
+  rotate: false
+  xy: 33, 14
+  size: 30, 9
+  orig: 30, 9
+  offset: 0, 0
+  index: -1
+walllayer3
+  rotate: false
+  xy: 49, 1
+  size: 22, 11
+  orig: 22, 11
+  offset: 0, 0
+  index: -1
+desklayer1
+  rotate: false
+  xy: 97, 37
+  size: 15, 8
+  orig: 15, 8
+  offset: 0, 0
+  index: -1
+desklayer9
+  rotate: false
+  xy: 97, 37
+  size: 15, 8
+  orig: 15, 8
+  offset: 0, 0
+  index: -1
+desklayer2
+  rotate: false
+  xy: 65, 26
+  size: 15, 8
+  orig: 15, 8
+  offset: 0, 0
+  index: -1
+desklayer3
+  rotate: false
+  xy: 65, 16
+  size: 15, 8
+  orig: 15, 8
+  offset: 0, 0
+  index: -1
+desklayer4
+  rotate: false
+  xy: 82, 26
+  size: 15, 8
+  orig: 15, 8
+  offset: 0, 0
+  index: -1
+desklayer5
+  rotate: false
+  xy: 82, 16
+  size: 15, 8
+  orig: 15, 8
+  offset: 0, 0
+  index: -1
+desklayer6
+  rotate: false
+  xy: 73, 6
+  size: 15, 8
+  orig: 15, 8
+  offset: 0, 0
+  index: -1
+desklayer7
+  rotate: false
+  xy: 99, 27
+  size: 15, 8
+  orig: 15, 8
+  offset: 0, 0
+  index: -1
+desklayer8
+  rotate: false
+  xy: 99, 17
+  size: 15, 8
+  orig: 15, 8
+  offset: 0, 0
+  index: -1
+redlayer1
+  rotate: false
+  xy: 99, 10
+  size: 14, 5
+  orig: 14, 5
+  offset: 0, 0
+  index: -1
+redlayer2
+  rotate: false
+  xy: 90, 3
+  size: 14, 5
+  orig: 14, 5
+  offset: 0, 0
+  index: -1
+redlayer3
+  rotate: false
+  xy: 106, 3
+  size: 14, 5
+  orig: 14, 5
+  offset: 0, 0
+  index: -1

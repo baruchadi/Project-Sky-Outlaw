@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.backends.lwjgl.LwjglApplication"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.utils.Array"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.GL10"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.glutils.ShapeRenderer"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType"/>
+<fullyQualifiedTypeName name="com.isolatedpixel.skymission.objects.Block"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.Color"/>
+<fullyQualifiedTypeName name="com.isolatedpixel.skymission.graphics.WorldRenderer"/>
+<fullyQualifiedTypeName name="com.isolatedpixel.skymission.screens.DemoWorld"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.InputProcessor"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.Gdx"/>
+<fullyQualifiedTypeName name="com.isolatedpixel.skymission.StartPoint"/>
+<fullyQualifiedTypeName name="com.isolatedpixel.skymission.mobs.Player.State"/>
+<fullyQualifiedTypeName name="com.isolatedpixel.skymission.world.WorldController"/>
+<fullyQualifiedTypeName name="com.isolatedpixel.skymission.screens.GameScreen"/>
+<fullyQualifiedTypeName name="com.isolatedpixel.skymission.screens.cutscenes.Tavern"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.scenes.scene2d.ui.Label"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.OrthographicCamera"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.Input.Keys"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.g2d.BitmapFont"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.g2d.Sprite"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.g3d.materials.BlendingAttribute"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.Pixmap.Blending"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="com.isolatedpixel.skymission.graphics.Assets"/>
+<fullyQualifiedTypeName name="com.isolatedpixel.skymission.mobs.Zombie"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.g2d.TextureRegion"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.Texture"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.math.Vector2"/>
+<fullyQualifiedTypeName name="java.util.Objects"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.g2d.SpriteBatch"/>
+<fullyQualifiedTypeName name="com.isolatedpixel.skymission.objects.Box"/>
+<fullyQualifiedTypeName name="com.isolatedpixel.skymission.objects.collision.QuadTree"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.math.Rectangle"/>
+<fullyQualifiedTypeName name="com.isolatedpixel.skymission.objects.collision.Collideable"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.g2d.TextureAtlas"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.g2d.Animation"/>
+<fullyQualifiedTypeName name="com.isolatedpixel.skymission.mobs.Player"/>
+<fullyQualifiedTypeName name="com.isolatedpixel.skymission.world.WorldRenderer"/>
+</qualifiedTypeNameHistroy>

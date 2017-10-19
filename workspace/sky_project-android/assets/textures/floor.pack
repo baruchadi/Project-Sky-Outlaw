@@ -1,0 +1,40 @@
+
+floor1.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+shelf
+  rotate: false
+  xy: 0, 10
+  size: 32, 98
+  orig: 32, 98
+  offset: 0, 0
+  index: -1
+door
+  rotate: false
+  xy: 32, 32
+  size: 32, 76
+  orig: 32, 76
+  offset: 0, 0
+  index: -1
+dirt_floor
+  rotate: false
+  xy: 32, 0
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+wood_floor
+  rotate: false
+  xy: 64, 76
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+bar
+  rotate: false
+  xy: 64, 38
+  size: 34, 38
+  orig: 34, 38
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,159 @@
+
+bounty.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bh
+  rotate: false
+  xy: 0, 0
+  size: 44, 78
+  orig: 44, 78
+  offset: 0, 0
+  index: 1
+bh_1idle
+  rotate: false
+  xy: 44, 0
+  size: 44, 78
+  orig: 44, 78
+  offset: 0, 0
+  index: -1
+bh_2iss
+  rotate: false
+  xy: 88, 0
+  size: 44, 78
+  orig: 44, 78
+  offset: 0, 0
+  index: -1
+bh_2ss
+  rotate: false
+  xy: 132, 0
+  size: 44, 78
+  orig: 44, 78
+  offset: 0, 0
+  index: -1
+bh_nw
+  rotate: false
+  xy: 176, 0
+  size: 44, 78
+  orig: 44, 78
+  offset: 0, 0
+  index: -1
+bh_ss
+  rotate: false
+  xy: 220, 0
+  size: 44, 78
+  orig: 44, 78
+  offset: 0, 0
+  index: -1
+b_2iss
+  rotate: false
+  xy: 264, 0
+  size: 44, 78
+  orig: 44, 78
+  offset: 0, 0
+  index: -1
+b_2ss
+  rotate: false
+  xy: 308, 0
+  size: 44, 78
+  orig: 44, 78
+  offset: 0, 0
+  index: -1
+b_nw
+  rotate: false
+  xy: 352, 0
+  size: 44, 78
+  orig: 44, 78
+  offset: 0, 0
+  index: -1
+b_ss
+  rotate: false
+  xy: 396, 0
+  size: 44, 78
+  orig: 44, 78
+  offset: 0, 0
+  index: -1
+w_2iss
+  rotate: false
+  xy: 440, 0
+  size: 44, 78
+  orig: 44, 78
+  offset: 0, 0
+  index: -1
+w_2ss
+  rotate: false
+  xy: 484, 0
+  size: 44, 78
+  orig: 44, 78
+  offset: 0, 0
+  index: -1
+w_nw
+  rotate: false
+  xy: 528, 0
+  size: 44, 78
+  orig: 44, 78
+  offset: 0, 0
+  index: -1
+w_ss
+  rotate: false
+  xy: 572, 0
+  size: 44, 78
+  orig: 44, 78
+  offset: 0, 0
+  index: -1
+crouch_2iss
+  rotate: false
+  xy: 616, 22
+  size: 44, 56
+  orig: 44, 56
+  offset: 0, 0
+  index: -1
+crouch_2ss
+  rotate: false
+  xy: 660, 22
+  size: 44, 56
+  orig: 44, 56
+  offset: 0, 0
+  index: -1
+crouch_nw
+  rotate: false
+  xy: 704, 22
+  size: 44, 56
+  orig: 44, 56
+  offset: 0, 0
+  index: -1
+crouch_ss
+  rotate: false
+  xy: 748, 22
+  size: 44, 56
+  orig: 44, 56
+  offset: 0, 0
+  index: -1
+il_ss
+  rotate: false
+  xy: 616, 14
+  size: 14, 8
+  orig: 14, 8
+  offset: 0, 0
+  index: -1
+ss
+  rotate: false
+  xy: 616, 6
+  size: 14, 8
+  orig: 14, 8
+  offset: 0, 0
+  index: -1
+nb
+  rotate: false
+  xy: 792, 77
+  size: 2, 1
+  orig: 2, 1
+  offset: 0, 0
+  index: -1
+rb
+  rotate: false
+  xy: 630, 21
+  size: 2, 1
+  orig: 2, 1
+  offset: 0, 0
+  index: -1

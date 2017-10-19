@@ -1,0 +1,105 @@
+package com.isolatedpixel.skymission.graphics;
+
+import java.util.LinkedList;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+public class Damage {
+	public int damage;
+
+	public int[] dmg;
+
+	float x, y;
+
+	public float alpha = 1;
+
+	public int life = 5;
+
+	public int maxLife = 5;
+
+	public float gravity = 0.098f;
+
+	// public TextureRegion[] t;
+
+	float dX;
+
+	public Damage(int dmg, float x, float y, float dX, boolean right) {
+		this.x = x;
+		this.y = y;
+		this.damage = dmg;
+		this.dX = dX;
+		if (!right)
+			this.dX = -this.dX;
+		// String dmgStr = Integer.toString(dmg);
+		// t = new TextureRegion[dmgStr.length()];
+		// System.out.println(dmgStr);
+		this.dmg = getDigits(dmg);
+		// t[i] = Assets.numbers[dmgStr.charAt(i)];
+
+		if (damage > 20) {
+			c = 0;
+			System.out.println(damage);
+		}
+	}
+
+	float c = 1;
+
+	public int[] getDigits(int i) {
+		System.out.println("start, " + i);
+		int[] digits = new int[Integer.toString(i).length()];
+		int l = 0;
+		while (i > 0) {
+			digits[l] = i % 10;
+			System.out.println(i % 10);
+			i /= 10;
+			l++;
+		}
+		System.out.println("done");
+		return digits;
+	}
+
+	public float getX() {
+		return x;
+	}
+
+	public String getDmg() {
+		return Integer.toString(damage);
+	}
+
+	public float getY() {
+		return y;
+	}
+
+	public void draw(SpriteBatch b) {
+
+		b.setColor(.9f, c, c, alpha);
+
+		for (int i = 0; i < dmg.length; i++) {
+			// System.out.println(i);
+			b.draw(Assets.numbers[dmg[i]], x - i * .30f, y, .25f, .25f);
+		}
+	}
+
+	float yD = -.035f;
+
+	public boolean update(LinkedList<Damage> d, float delta) {
+
+		alpha -= .5f * delta;
+
+		if (y <= .25f) {
+			if (alpha <= .001f) {
+				d.remove(this);
+				return false;
+			} else
+				return true;
+		} else {
+
+			yD += gravity * delta;
+			y -= yD;
+			x += dX * delta;
+
+			return true;
+		}
+	}
+
+}

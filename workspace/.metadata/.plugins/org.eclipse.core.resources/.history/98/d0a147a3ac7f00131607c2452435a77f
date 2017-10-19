@@ -1,0 +1,197 @@
+package com.isolatedpixel.skymission.objects.collision;
+
+import java.util.LinkedList;
+
+import com.badlogic.gdx.math.Rectangle;
+import com.isolatedpixel.skymission.mobs.BasicAI;
+import com.isolatedpixel.skymission.mobs.Player;
+import com.isolatedpixel.skymission.objects.ammo.Bullet;
+
+public class QuadTree {
+	private int MAX_OBJ = 10;
+	private int MAX_LVLS = 5;
+	private int lvl;
+
+	private Rectangle bounds;
+	private QuadTree[] nodes;
+
+	// to check collision on the following
+	private LinkedList<Collideable> enemies, bullets, etc;
+
+	private Player bob;
+
+	// if bob && enemies in the same area, check it
+	// if enemies and bullets in the same area, check it
+
+	public QuadTree(int pLevel, Rectangle rect) {
+		lvl = pLevel;
+		enemies = new LinkedList<Collideable>();
+		bullets = new LinkedList<Collideable>();
+
+		bounds = rect;
+		nodes = new QuadTree[4];
+	}
+
+	
+	public boolean checkBob(){
+
+		if(bob != null)
+		return false;
+	
+	}
+	public void addBob(Player bob){
+		this.bob=bob;
+		
+	}
+	public void Clear() {
+		enemies.clear();
+		bullets.clear();
+		bob = null;
+		for (int i = 0; i < nodes.length; i++) {
+			if (nodes[i] != null) {
+				nodes[i].Clear();
+				nodes[i] = null;
+			}
+		}
+	}
+
+	private void split() {
+
+		int subWidth = (int) (bounds.getWidth() / 2);
+		int subHeight = (int) (bounds.getHeight() / 2);
+		int x = (int) bounds.getX();
+		int y = (int) bounds.getY();
+
+		nodes[0] = new QuadTree(lvl + 1, new Rectangle(x + subWidth, y,
+				subWidth, subHeight));
+		nodes[1] = new QuadTree(lvl + 1, new Rectangle(x, y, subWidth,
+				subHeight));
+		nodes[2] = new QuadTree(lvl + 1, new Rectangle(x, y + subHeight,
+				subWidth, subHeight));
+		nodes[4] = new QuadTree(lvl + 1, new Rectangle(x + subWidth, y
+				+ subHeight, subWidth, subHeight));
+
+	}
+
+	private int getIndex(Collideable rect) {
+		int index = -1;
+		// MP = Mid Point
+		double verticalMP = bounds.getX() + (bounds.getWidth() / 2);
+		double horizontalMP = bounds.getY() + (bounds.getHeight() / 2);
+		boolean topQuadrant = (rect.getY() < horizontalMP && rect.getY()
+				+ rect.getHeight() < horizontalMP);
+		boolean bottomQuadrant = (rect.getY() > horizontalMP);
+
+		if (rect.getX() < verticalMP
+				&& rect.getX() + rect.getWidth() < verticalMP) {
+			if (topQuadrant)
+				index = 1;
+			else if (bottomQuadrant)
+				index = 2;
+		} else if (rect.getX() > verticalMP) {
+			if (topQuadrant)
+				index = 0;
+			else if (bottomQuadrant)
+				index = 3;
+
+		}
+
+		return index;
+	}
+	public void insert(BasicAI rect) {
+		if (nodes[0] != null) {
+			int index = getIndex(rect);
+			if (index != -1) {
+				nodes[index].insert(rect);
+
+				return;
+			}
+		}
+		enemies.add(rect);
+
+		if (enemies.size() > MAX_OBJ && lvl < MAX_LVLS) {
+			if (nodes[0] == null) {
+				split();
+			}
+			int i = 0;
+			while (i < enemies.size()) {
+				int index = getIndex(enemies.get(i));
+				if (index != -1) {
+					nodes[index].insert(enemies.remove(i));
+
+				} else {
+					i++;
+				}
+			}
+		}
+	}
+	
+	public void insert(Bullet rect) {
+		if (nodes[0] != null) {
+			int index = getIndex(rect);
+			if (index != -1) {
+				nodes[index].insert(rect);
+
+				return;
+			}
+		}
+		bullets.add(rect);
+
+		if (bullets.size() > MAX_OBJ && lvl < MAX_LVLS) {
+			if (nodes[0] == null) {
+				split();
+			}
+			int i = 0;
+			while (i < bullets.size()) {
+				int index = getIndex(bullets.get(i));
+				if (index != -1) {
+					nodes[index].insert(bullets.remove(i));
+
+				} else {
+					i++;
+				}
+			}
+		}
+	}
+	
+	public void insert(Collideable rect) {
+		if (nodes[0] != null) {
+			int index = getIndex(rect);
+			if (index != -1) {
+				nodes[index].insert(rect);
+
+				return;
+			}
+		}
+		etc.add(rect);
+
+		if (etc.size() > MAX_OBJ && lvl < MAX_LVLS) {
+			if (nodes[0] == null) {
+				split();
+			}
+			int i = 0;
+			while (i < etc.size()) {
+				int index = getIndex(etc.get(i));
+				if (index != -1) {
+					nodes[index].insert(etc.remove(i));
+
+				} else {
+					i++;
+				}
+			}
+		}
+	}
+
+	public LinkedList<Collideable> retrieve(
+			LinkedList<Collideable> returnObjects, Collideable rect) {
+		int index = getIndex(rect);
+		if (index != -1 && nodes[0] != null) {
+			nodes[index].retrieve(returnObjects, rect);
+		}
+
+		// returnObjects.addAll(obj);
+
+		return returnObjects;
+	}
+
+}

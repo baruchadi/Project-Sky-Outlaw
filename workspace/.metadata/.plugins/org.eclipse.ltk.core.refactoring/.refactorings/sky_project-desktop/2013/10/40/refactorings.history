@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;sky_project-desktop/assets/background/layer2 (1).png&apos; to &apos;layer2_1.png&apos;" description="Rename resource &apos;layer2 (1).png&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="assets/background/layer2 (1).png" name="layer2_1.png" stamp="1380944549181" updateReferences="true"/>
+</session>
